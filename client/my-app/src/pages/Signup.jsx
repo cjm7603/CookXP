@@ -32,19 +32,19 @@ const Signup = () => {
       </Box>
       <Box>
         <TextField
-          label="Username"
-          variant="outlined"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
           label="Email"
           type="email"
           variant="outlined"
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="Username"
+          variant="outlined"
+          fullWidth
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           label="Password"

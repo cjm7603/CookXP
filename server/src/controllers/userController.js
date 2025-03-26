@@ -27,9 +27,12 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-
+  console.log(username, password)
   try {
     const userDoc = await User.findOne({ username });
+    const userList = await User.find();
+    console.log(userList)
+    console.log(userDoc)
     if (!userDoc) {
       return res.status(404).json({ message: "Invalid username" });
     }

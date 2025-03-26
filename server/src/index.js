@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const userRoutes = require("./routes/userRoutes")
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;

@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 const Welcome = () => {
   const navigate = useNavigate();
 
-  const handleGoToHome = () => {
-    navigate("/home");
+  const handleGoToLogin = () => {
+    navigate("/login");
+  };
+
+  const handleGoToSignup = () => {
+    navigate("/signup");
   };
 
   return (
@@ -24,15 +28,23 @@ const Welcome = () => {
         Welcome to Our Platform!
       </Typography>
       <Typography variant="h6" mb={3}>
-        We're glad to have you here. Start exploring and enjoy your experience.
+        We're glad to have you here. Please log in or sign up to get started.
       </Typography>
       <Button
         variant="contained"
         color="primary"
-        onClick={handleGoToHome}
+        onClick={handleGoToLogin}
+        sx={{ fontSize: 16, fontWeight: "bold", mb: 2 }}
+      >
+        Log In
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={handleGoToSignup}
         sx={{ fontSize: 16, fontWeight: "bold" }}
       >
-        Go to Home
+        Sign Up
       </Button>
     </Container>
   );

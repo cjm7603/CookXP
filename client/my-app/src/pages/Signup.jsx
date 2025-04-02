@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Container, Box, TextField, Button, Typography, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import logo from "../assets/logo.png";
+
+import "../styling.css";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -25,49 +28,48 @@ const Signup = () => {
   };
 
   return (
-    <Container>
-      <Box>
-        <Typography variant="h3">Create Account</Typography>
-        <Typography variant="h6">Sign up to get started</Typography>
-      </Box>
-      <Box>
-        <TextField
-          label="Email"
-          type="email"
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Username"
-          variant="outlined"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <Typography color="error">{error}</Typography>}
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={handleSignup}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress size={24} /> : "SIGN UP"}
-        </Button>
-      </Box>
-      <Typography>
-        Already have an account? <span onClick={() => navigate("/login")}>Log In</span>
-      </Typography>
-    </Container>
+    <div className="login">
+      <div className="container">
+        <div className="upper">
+          <img src={logo} alt="CookXP Logo" className="logo"/>
+        </div>
+        <div className="lower">
+          <div className="prompt">
+            Welcome!
+            
+            <div className="instructions">
+              Create an account to get started
+            </div>
+          </div>
+
+          <div className="inputs">
+            <div className="input">
+              Email
+              <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field"/>
+            </div>
+
+            <div className="input">
+              Username
+              <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="input-field"/>
+            </div>
+
+            <div className="input">
+              Password
+              <input type="text" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-field"/>
+            </div>
+
+            {error && <div className="error">{error}</div> }
+          </div>
+
+          <button onClick={handleSignup} className="login-button">
+            {loading ? <CircularProgress size={24} color="white"/> : "Sign Up"}
+          </button>
+          <div className="signup-nav">
+            Already have an account? <span className="signup-link" onClick={() => navigate("/login")}>Login</span>
+          </div>
+        </div>
+      </div>
+  </div>
   );
 };
 

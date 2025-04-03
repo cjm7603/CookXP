@@ -10,5 +10,5 @@ const FriendSchema = new mongoose.Schema({
   friendship_date: {type:Date, required: true, default:Date.now}
 });
 
-AchievementSchema.plugin(AutoIncrement, { inc_field: 'friend_id' });
+FriendSchema.plugin(AutoIncrement, { inc_field: 'friend_id' });
 module.exports = mongoose.model('Friend', FriendSchema);

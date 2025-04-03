@@ -110,7 +110,7 @@ exports.getFriendByUser = async (req, res) => {
   const { username } = req.params;
 
   try {
-      const userFriends = await Friend.find({ username }, 'friend_username -_id');
+      const userFriends = await Friend.find({ username }, 'friend_username friendship_date -_id');
 
       if (userFriends.length === 0) {
           return res.status(404).json({ message: "User has no friends" });
@@ -139,7 +139,6 @@ exports.getAllUsers = async(req, res) => {
 };
 
 exports.createRecipeCompletion = async(req, res) => {
-  const {recipe_id, username, is_completed} = req.params;
   try {
     const newRecipeCompletion = new RecipeCompletion({
       recipe_id,

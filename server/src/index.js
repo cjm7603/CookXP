@@ -24,7 +24,7 @@ app.use(cors({
 }));
 
 app.use("/user", userRoutes);
-app.use("/achievements", achievementRoutes)
+app.use("/achievement", achievementRoutes)
 app.use("/recipe", recipeRoutes);
 
 // Sample Route

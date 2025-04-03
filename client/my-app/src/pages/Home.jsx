@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
+import Recipe from "../components/Recipe";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import {RecipeModel} from '../models/RecipeModel';
@@ -38,7 +39,7 @@ const Home = () => {
       <div className="body">
         <div className="heading">
         </div>
-        {recipe?.strInstructions}
+        <Recipe recipe={recipe}/>
         <button onClick={handleGetRandomRecipe} className="signup-button">
           {loading ? <CircularProgress size={24} color="white"/> : "Random Recipe"}
         </button>

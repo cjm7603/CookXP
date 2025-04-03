@@ -9,6 +9,7 @@ const Profile = () => {
     const [token, setToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [userFriends, setUserFriends] = useState([]);
+    const [userAchievements, setUserAchievements] = useState([]);
     const friendText = useRef();
 
   const handleGoToSignup = () => {
@@ -32,7 +33,18 @@ const Profile = () => {
         const { data } = await axios.get('http://localhost:5000/user/friend/' + token.username);
         if(data && data.userFriends){
             setUserFriends(data.userFriends);
-            console.log(data.userFriends);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+  }
+
+  const handleGetUserAchievements = async () => {
+    try {
+        const { data } = await axios.get('http://localhost:5000/achievement/user/' + token.username);
+        if(data && data.userAchievements){
+            setUserAchievements(data.userAchievements);
         }
     } catch (error) {
         console.log(error);
@@ -75,6 +87,7 @@ const Profile = () => {
         if (token) {
             handleGetUserInfo();
             handleGetUserFriends();
+            handleGetUserAchievements();
         }
     }, [token]);
   return (
@@ -84,20 +97,39 @@ const Profile = () => {
         <h1>Hello  {userInfo?.username}!</h1>
         <h2>Chef level {userInfo?.chef_level}</h2>
         
-        {userFriends == []
+        {userFriends.length === 0
             ?
-            <h4>You have no freinds :(</h4>
+            <h4>You have no friends :(</h4>
             :
                 <div>
                     <h3>Friends</h3>
                     {userFriends.map((friend, index) => (
-                        <h4 key={index}>{friend.friend_username}</h4>
+                        <div key={index}>
+                            <h4>{friend.friend_username}</h4>
+                            <h5>Friends since {new Date(friend.friendship_date).toLocaleDateString()}</h5>
+                        </div>
+
                     ))}
                 </div>
         }
         <input type="text" ref={friendText}/>
         <button onClick={handleAddFriend}>Add friends</button>
 
+        {userAchievements.length === 0
+            ?
+            <h4>You have no Achievements :(</h4>
+            :
+                <div>
+                    <h3>Achievements</h3>
+                    {userAchievements.map((achievement, index) => (
+                        <div  key={index}>
+                            <h4>{achievement.name}</h4>
+                            <h5>Description: {achievement.description}</h5>
+                            <h5>Earned: {new Date(achievement.earned_date).toLocaleDateString()}</h5>
+                        </div>
+                    ))}
+                </div>
+        }
     </div>
   );
 };

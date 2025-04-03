@@ -33,7 +33,6 @@ const Header = () => {
         if(storedData) {
             setToken(JSON.parse(storedData))
         }
-        console.log(storedData);
     }, []);
 
     return (

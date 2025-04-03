@@ -72,16 +72,32 @@ exports.logout = async (req, res) => {
   }
 };
 
+exports.getUserInfo = async(req, res) =>{
+  const {username} = req.params;
+  try{
+    const userDetails = await User.findOne({username}, 'username chef_level');
+
+
+    if (!userDetails) {
+      return res.status(404).json({ message: "User" + username+ " not found" });
+    }
+
+    res.status(200).json({ userDetails, message: "Account information found"});
+
+  }catch(err){
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+
+}
+
 
 exports.addFriend = async (req, res) => {
   const {username, friend_username } = req.body;
-
   try {
       const newFriend= new Friend({
           username,
           friend_username,
       });
-
       await newFriend.save();
       res.status(201).json({ message: "Friend created successfully", friend: newFriend });
 
@@ -94,13 +110,13 @@ exports.getFriendByUser = async (req, res) => {
   const { username } = req.params;
 
   try {
-      const userFriends = await Friend.find({ username }, 'username');
+      const userFriends = await Friend.find({ username }, 'friend_username -_id');
 
       if (userFriends.length === 0) {
           return res.status(404).json({ message: "User has no friends" });
       }
 
-      res.status(200).json(userFriends);
+      res.status(200).json({userFriends, message: "User friends found"});
 
   } catch (err) {
       res.status(500).json({ message: "Server error", error: err.message });

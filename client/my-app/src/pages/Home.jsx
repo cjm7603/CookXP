@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNav from "../components/SideNav";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import Recipe from "../components/Recipe";
 import {RecipeModel} from '../models/RecipeModel';
 import "../styling.css";
 
@@ -34,6 +35,10 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    handleGetRandomRecipe();
+  }, []);
+
   const handleGoToProfile = () => {
     navigate("/profile");
 }
@@ -45,10 +50,10 @@ const Home = () => {
         <button onClick={handleGoToProfile}>
           View Profile
         </button>
+        <Recipe recipe={recipe}/>
         <button onClick={handleGetRandomRecipe} className="signup-button">
           {loading ? <CircularProgress size={24} color="white"/> : "Random Recipe"}
         </button>
-        {recipe?.strInstructions}
         {error && <div className="error">{error}</div> }
       </div>
     </div>

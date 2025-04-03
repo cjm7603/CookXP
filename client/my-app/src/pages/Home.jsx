@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Recipe from "../components/Recipe";
 import axios from "axios";
@@ -32,6 +32,10 @@ const Home = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    handleGetRandomRecipe();
+  }, []);
 
   return (
     <div className="welcome">

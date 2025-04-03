@@ -49,6 +49,121 @@
         }
     }
     
+    .logged-in {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logout-icon {
+            transition: all 0.2s;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.15);
+            }
+        }
+        
+    }
+}
+
+.sidebar {
+    height: calc(100vh - 40px);
+    padding: 20px;
+
+    .icon {
+        font-size: 30px;
+        color: white;
+
+        transition: all 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.15);
+        }
+    }
+
+    .navs {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        
+        font-family: 'Lato';
+        font-size: 18px;
+        font-weight: 500;
+        color: white;
+    }
+
+    .collapsed {
+        width: 50px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        transition: all 0.3s ease;
+    }
+
+    .expanded {
+        width: 200px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: left;
+
+        transition: all 0.3s ease;
+
+        .heading {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+            .title {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+        
+                .logo {
+                    width: 30px;
+                    height: 30px;
+                }
+        
+                .name {
+                    margin-bottom: -5px;
+                    font-family: 'Josefin Sans';
+                    font-size: 20px;
+                    color: white;
+                }
+            }
+        }
+      }
+}
+
+.home {
+    display: flex;
+
+    background-color: #FF8F49;
+
+    .body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px;
+
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+
+        background-color: white;
+    }
 }
 
 .recipe {

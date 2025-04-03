@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
+import SideNav from "../components/SideNav";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import {RecipeModel} from '../models/RecipeModel';
 import "../styling.css";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [recipe, setRecipe] = useState(RecipeModel);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,16 +34,21 @@ const Home = () => {
     }
   };
 
+  const handleGoToProfile = () => {
+    navigate("/profile");
+}
+
   return (
-    <div className="welcome">
-      <Header />
+    <div className="home">
+      <SideNav />
       <div className="body">
-        <div className="heading">
-        </div>
-        {recipe?.strInstructions}
+        <button onClick={handleGoToProfile}>
+          View Profile
+        </button>
         <button onClick={handleGetRandomRecipe} className="signup-button">
           {loading ? <CircularProgress size={24} color="white"/> : "Random Recipe"}
         </button>
+        {recipe?.strInstructions}
         {error && <div className="error">{error}</div> }
       </div>
     </div>

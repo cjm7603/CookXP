@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { FaRightFromBracket } from "react-icons/fa6";
 import "../styling.css";
 
 
@@ -50,13 +51,8 @@ const Header = () => {
                 Login
             </button>
             :
-            <div>
-                <button onClick={handleGoToProfile} className="login-button">
-                    Profile
-                </button>
-                <button onClick={handleGoToLogout} className="login-button">
-                    Logout
-                </button>
+            <div className="logged-in">
+                <FaRightFromBracket size={24} color="white" onClick={handleGoToLogout} className="logout-icon"/>
             </div>
             }
             

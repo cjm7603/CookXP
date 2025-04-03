@@ -9,5 +9,5 @@ const RecipeCompletionSchema = new mongoose.Schema({
     completion_date: {type:Date,required:false}
 });
 
-AchievementSchema.plugin(AutoIncrement, { inc_field: 'completion_id' });
+RecipeCompletionSchema.plugin(AutoIncrement, { inc_field: 'completion_id' });
 module.exports = mongoose.model('RecipeCompletion', RecipeCompletionSchema);

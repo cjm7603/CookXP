@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Friend = require('../models/Friend');
+const RecipeCompletion = require('../models/Recipe_Completion')
 require('dotenv').config();
 
 const secret = process.env.SECRET_KEY; 
@@ -119,7 +120,39 @@ exports.getAllUsers = async(req, res) => {
   } catch (err) {
       res.status(500).json({ message: "Server error", error: err.message });
 }
+};
+
+exports.createRecipeCompletion = async(req, res) => {
+  const {recipe_id, username, is_completed} = req.params;
+  try {
+    const newRecipeCompletion = new RecipeCompletion({
+      recipe_id,
+      username,
+      is_completed
+    })
+
+    await newRecipeCompletion.save();
+    res.status(201).json({ message: "Recipe Completion created successfully", RecipeCompletion: newRecipeCompletion });
+
+  } catch (err) {
+      res.status(500).json({ message: "Server error", error: err.message });
+}
+}
 
 
+exports.completeRecipe = async(req, res) => {
+  const {recipeCompletionId} = req.params;
+  try {
+    const recipeCompletion = await RecipeCompletion.findByIdAndUpdate(
+      recipeCompletionId,
+      {is_completed: true,
+      completion_date: Date.now},
+      {new:true}
+    );
 
+    res.status(200).json({ message: "Recipe Marked Complete successfully", RecipeCompletion: recipeCompletion });
+
+  } catch (err) {
+      res.status(500).json({ message: "Server error", error: err.message });
+}
 };

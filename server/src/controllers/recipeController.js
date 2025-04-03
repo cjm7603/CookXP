@@ -62,3 +62,23 @@ exports.getById = async (req, res) => {
     }
 
 };
+
+exports.createRecipe = async(req, res) => {
+    const { id, difficulty_lvl, point_value } = req.params;
+    try{
+
+        const newRecipe = new Recipe({
+            id, 
+            difficulty_lvl, 
+            point_value,
+        });
+        
+        await newRecipe.save();
+
+        res.status(201).json({ message: "Recipe created successfully", Recipe: newRecipe });
+
+
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+};

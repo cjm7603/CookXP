@@ -1,34 +1,50 @@
-import React from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import Header from "../components/Header";
+import axios from "axios";
+import { CircularProgress } from "@mui/material";
+import {RecipeModel} from '../models/RecipeModel';
+import "../styling.css";
 
 const Home = () => {
+  const [recipe, setRecipe] = useState(RecipeModel);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+
+  const handleGetRandomRecipe = async () => {
+    setLoading(true);
+    setError("");
+    try {
+
+      const response = await axios.get("http://localhost:5000/recipe/random");
+      const data = response.data;
+
+      if(data && data.meals && data.meals.length > 0){
+        setRecipe(data.meals[0]);
+      }
+      else{
+        setError("No recipe found!");
+      }
+    } catch (error) {
+      setError("Recipe fetch failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        textAlign: "center",
-      }}
-    >
-      <Typography variant="h3" fontWeight="bold" mb={3}>
-        Welcome to the Home Page!
-      </Typography>
-      <Typography variant="h6" mb={3}>
-        This is a simple Home page where you can place your content.
-      </Typography>
-      <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ fontSize: 16, fontWeight: "bold", mt: 2 }}
-        >
-          Sample Button
-        </Button>
-      </Box>
-    </Container>
+    <div className="welcome">
+      <Header />
+      <div className="body">
+        <div className="heading">
+        </div>
+        {recipe?.strInstructions}
+        <button onClick={handleGetRandomRecipe} className="signup-button">
+          {loading ? <CircularProgress size={24} color="white"/> : "Random Recipe"}
+        </button>
+        {error && <div className="error">{error}</div> }
+      </div>
+    </div>
   );
 };
 

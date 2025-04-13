@@ -49,22 +49,30 @@ const SideNav = () => {
                         <TbLayoutSidebarRightExpandFilled onClick={toggleSidebar} className="icon"/>
                     </div>
                     <div className="navs">
-                        <div className="nav">
+                        <div className="nav" onClick={()=>navigate("/home")}>
                             <FaHouse className="icon"/>
-                            Home
+                            <div className="label">
+                                Home
+                            </div>
                         </div>
-                        <div className="nav">
+                        <div className="nav" onClick={()=>navigate("/explore")}>
                             <FaUtensils className="icon"/>
-                            Explore
+                            <div className="label">
+                                Explore
+                            </div>
                         </div>
-                        <div className="nav">
+                        <div className="nav" onClick={()=>navigate("/settings")}>
                             <FaGear className="icon"/>
-                            Settings
+                            <div className="label">
+                                Settings
+                            </div>
                         </div>
                     </div>
                     <div className="nav" onClick={handleGoToLogout}>
                         <FaRightFromBracket className="icon"/>
-                        Logout
+                        <div className="label">
+                            Logout
+                        </div>
                     </div>
                 </div>
                 : 
@@ -73,13 +81,13 @@ const SideNav = () => {
                         <TbLayoutSidebarLeftExpandFilled className="icon"/>
                     </div>
                     <div className="navs">
-                        <div>
+                        <div onClick={()=>navigate("/home")}>
                             <FaHouse className="icon"/>
                         </div>
-                        <div>
+                        <div onClick={()=>navigate("/explore")}>
                             <FaUtensils className="icon"/>
                         </div>
-                        <div>
+                        <div onClick={()=>navigate("/settings")}>
                             <FaGear className="icon"/>
                         </div>
                     </div>

@@ -206,42 +206,42 @@ const Home = () => {
       </div>
 
       {recipeOpen ? <div className="recipeOpen">
-          <div className="modal">
-            <div className="title">
-              <div className="name">
-                {recipe?.strMeal}
+        <div className="modal">
+          <div className="title">
+            <div className="name">
+              {recipe?.strMeal}
+            </div>
+            <div className="close" onClick={toggleRecipe}>
+              <FaRectangleXmark className="icon"/>
+            </div>
+          </div>
+          <div className="recipeInfo">
+            <div className="left">
+              <div className="photo">
+                <img src={recipe?.strMealThumb} className="thumbnail"/>
               </div>
-              <div className="close" onClick={toggleRecipe}>
-                <FaRectangleXmark className="icon"/>
+              <div className="ingredients">
+                <div className="heading">
+                  Ingredients
+                </div>
+                
+                <div className="list">
+                  {renderIngredients()}
+                </div>
               </div>
             </div>
-            <div className="recipeInfo">
-              <div className="left">
-                <div className="photo">
-                  <img src={recipe?.strMealThumb} className="thumbnail"/>
-                </div>
-                <div className="ingredients">
-                  <div className="heading">
-                    Ingredients
-                  </div>
-                  
-                  <div className="list">
-                    {renderIngredients()}
-                  </div>
-                </div>
-              </div>
 
-              <div className="directions">
-                <div className="heading">
-                  Directions
-                </div>
-                <div className="list">
-                  {renderDirections()}
-                </div>
+            <div className="directions">
+              <div className="heading">
+                Directions
+              </div>
+              <div className="list">
+                {renderDirections()}
               </div>
             </div>
           </div>
-        </div> : null}
+        </div>
+      </div> : null}
     </div>
   );
 };

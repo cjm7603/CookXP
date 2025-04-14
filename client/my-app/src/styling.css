@@ -449,130 +449,84 @@
             }
         }
     }
+}
 
-    .recipeOpen {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
+.recipeOpen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #00000050;
+
+    .modal {
+        width: 80%;
+        height: 80%;
 
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
 
-        background-color: #00000050;
+        background-color: white;
 
-        .modal {
-            width: 80%;
-            height: 80%;
+        border-radius: 10px;
 
+        .title {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
 
-            background-color: white;
+            border-bottom: 1px solid #64B4AA;
 
-            border-radius: 10px;
+            .name {
+                margin-bottom: -5px;
 
-            .title {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 20px;
-
-                border-bottom: 1px solid #64B4AA;
-
-                .name {
-                    margin-bottom: -5px;
-
-                    font-family: 'Josefin Sans';
-                    font-size: 22px;
-                    font-weight: 700;
-                    color: #64B4AA;
-                }
-
-                .icon {
-                    font-size: 30px;
-                    color: #64B4AA;
-
-                    transition: all 0.2s;
-
-                    &:hover {
-                        cursor: pointer;
-                        transform: scale(1.15);
-                    }
-                }
+                font-family: 'Josefin Sans';
+                font-size: 22px;
+                font-weight: 700;
+                color: #64B4AA;
             }
 
-            .recipeInfo {
-                height: calc(100% - 65px);
+            .icon {
+                font-size: 30px;
+                color: #64B4AA;
+
+                transition: all 0.2s;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.15);
+                }
+            }
+        }
+
+        .recipeInfo {
+            height: calc(100% - 65px);
+            display: flex;
+
+            .left {
                 display: flex;
+                flex-direction: column;
 
-                .left {
+                border-right: 1px solid #64B4AA;
+
+                .photo {
                     display: flex;
-                    flex-direction: column;
 
-                    border-right: 1px solid #64B4AA;
+                    .thumbnail {
+                        height: 200px;
+                        width: 300px;
 
-                    .photo {
-                        display: flex;
-    
-                        .thumbnail {
-                            height: 200px;
-                            width: 300px;
+                        align-self: stretch;
 
-                            align-self: stretch;
-    
-                            object-fit: cover;
-                        }
-                    }
-
-                    .ingredients {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 20px;
-                        gap: 10px;
-
-                        overflow: hidden;
-
-                        .heading {
-                            padding-bottom: 10px;
-
-                            border-bottom: 1px solid black;
-
-                            font-family: 'Lato';
-                            font-size: 18px;
-                            font-weight: 700;
-                        }
-
-                        .list {
-                            display: flex;
-                            flex-direction: column;
-                            overflow-y: scroll;
-    
-                            .ant-checkbox-inner {
-                                border-color: black;
-                              }
-                            
-                            .ant-checkbox-checked .ant-checkbox-inner {
-                                background-color: black;
-                                border-color: black;
-                            }
-    
-                            .item {
-                                font-family: 'Lato';
-                                font-size: 14px;
-
-                                margin-bottom: 5px;
-                            }
-                        }
-    
-                        .list::-webkit-scrollbar {
-                            display: none;
-                        }
+                        object-fit: cover;
                     }
                 }
 
-                .directions {
-                    width: 100%;
+                .ingredients {
                     display: flex;
                     flex-direction: column;
                     padding: 20px;
@@ -595,11 +549,20 @@
                         flex-direction: column;
                         overflow-y: scroll;
 
+                        .ant-checkbox-inner {
+                            border-color: black;
+                          }
+                        
+                        .ant-checkbox-checked .ant-checkbox-inner {
+                            background-color: black;
+                            border-color: black;
+                        }
+
                         .item {
                             font-family: 'Lato';
                             font-size: 14px;
 
-                            margin-bottom: 10px;
+                            margin-bottom: 5px;
                         }
                     }
 
@@ -607,8 +570,45 @@
                         display: none;
                     }
                 }
-
             }
+
+            .directions {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                gap: 10px;
+
+                overflow: hidden;
+
+                .heading {
+                    padding-bottom: 10px;
+
+                    border-bottom: 1px solid black;
+
+                    font-family: 'Lato';
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+
+                .list {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: scroll;
+
+                    .item {
+                        font-family: 'Lato';
+                        font-size: 14px;
+
+                        margin-bottom: 10px;
+                    }
+                }
+
+                .list::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
         }
     }
 }
@@ -799,6 +799,207 @@
                     }
                 }
             }
+        }
+
+        .content::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.explore {
+    height: 100vh;
+    display: flex;
+
+    background-color: #FF8F49;
+
+    .body {
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+
+        background-color: white;
+
+        overflow: hidden;
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 50px 0 50px;
+
+            font-family: 'Josefin Sans';
+            font-size: 36px;
+        }
+
+        .filterSearch {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+
+            .filter {
+                display: flex;
+                align-items: center;
+                padding: 15px 20px;
+                gap: 10px;
+
+                border-radius: 100px;
+
+                background-color: #64B4AA;
+
+                font-family: 'Lato';
+                font-size: 16px;
+                color: white;
+
+                transition: all 0.2s ease;
+
+                .icon {
+                    font-size: 20px;
+                    color: white;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.05);
+                }
+            }
+
+            .search {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                padding: 0 15px;
+
+                border-radius: 100px;
+                border: 1px solid #FF8F49;
+
+                .icon {
+                    margin-right: 5px;
+
+                    font-size: 18px;
+                    color: #FF8F49;
+                }
+            }
+        }
+
+        .content {
+            height: calc(100vh - 180px);
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 50px;
+            padding: 20px 50px 0 50px;
+
+            overflow-x: hidden;
+            overflow-y: scroll;
+
+            .cards {
+                height: 100%;
+
+                display: flex;
+                flex-wrap: wrap;
+                gap: 40px;
+                
+
+                .card {
+                    height: 400px;
+                    width: 300px;
+
+                    display: flex;
+                    flex-direction: column;
+
+                    border-radius: 10px;
+                    
+                    background-color: #64B4AA;
+
+                    transition: all 0.2s ease;
+
+                    .photo {
+                        flex: 1;
+                        display: flex;
+
+                        border-top-left-radius: 10px;
+                        border-top-right-radius: 10px;
+
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+
+                    .name {
+                        padding: 15px 20px;
+
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+                        
+                        font-family: 'Josefin Sans';
+                        font-size: 20px;
+                        color: white;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.05);
+                    }
+                }
+            }
+        }
+
+        .content::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.settings {
+    height: 100vh;
+    display: flex;
+
+    background-color: #FF8F49;
+
+    .body {
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        gap: 50px;
+
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+
+        background-color: white;
+
+        overflow: hidden;
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-family: 'Josefin Sans';
+            font-size: 36px;
+        }
+
+        .content {
+            height: calc(100vh - 180px);
+            
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+
+            overflow-x: hidden;
+
+            font-family: 'Josefin Sans';
+            font-size: 20px;
         }
 
         .content::-webkit-scrollbar {

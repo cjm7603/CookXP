@@ -5,6 +5,8 @@ import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import Test from "./pages/Test"
 import Profile from "./pages/Profile";
+import Explore from './pages/Explore';
+import Settings from './pages/Settings';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserContextProvider, { useUser } from './context/UserContext';
 
@@ -21,6 +23,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/test" element={<Test/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/explore" element={<Explore />}/>
+          <Route path="/settings" element={<Settings />}/>
         </Routes>
       </UserContextProvider>
     </BrowserRouter>

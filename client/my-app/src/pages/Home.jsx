@@ -186,9 +186,8 @@ const Home = () => {
               What's cooking?
             </div>
             <div className="card">
-              <div className="photo">
-                <img src={recipe?.strMealThumb} className="thumbnail"/>
-              </div>
+              <div className="photo" style={{ backgroundImage: `url(${recipe?.strMealThumb})`}} />
+              
               <div className="info">
                 <div className="name">
                   {recipe?.strMeal}

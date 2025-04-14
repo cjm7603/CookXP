@@ -166,250 +166,443 @@
 }
 
 .home {
+    height: 100vh;
     display: flex;
 
     background-color: #FF8F49;
 
     .body {
-        flex-grow: 1;
+        width: 100%;
+        
         display: flex;
         flex-direction: column;
-        gap: 30px;
-        padding: 30px;
+        gap: 40px;
+        padding: 50px;
 
         border-top-left-radius: 50px;
         border-bottom-left-radius: 50px;
 
         background-color: white;
-    }
-}
 
-.recipe {
-    display: flex;
-    width: 1420px;
-    height: 880px;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background: #FFF;
-    align-self:center;
-
-    .head{
-        display: flex;
-        padding: 30px;
-        justify-content: space-between;
-        align-items: center;
-        align-self: stretch;
-        border-bottom: 1px solid #64B4AA;
-
-        .name{
-            color: #64B4AA;
-            leading-trim: both;
-            text-edge: cap;
-            font-family: "Josefin Sans";
-            font-size: 36px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-        }
-        .vector{
-            width: 47px;
-            height: 47px;
-            aspect-ratio: 1/1;
-            fill: #64B4AA;
-        }
-        .vector:hover{
-            filter:invert(50%);
-        }
-    }
-    .body{
-        display: flex;
-        align-items: flex-start;
-        flex: 1 0 0;
-        align-self: stretch;
-        flex-direction:row !important;
-        .left{
+        .title {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            flex: 1 0 0;
-            align-self: stretch;
-            border-right: 1px solid #64B4AA;
-            width:34%;
-            .picture{
-                display: flex;
-                height: 269px;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                align-self: stretch;
-                background: #AAA;
-            }
-            .ingredients{
-                display: flex;
-                padding: 30px 50px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
-                flex: 1 0 0;
-                align-self: stretch;
-                
 
-                .heading{
-                    display: flex;
-                    align-items: center;
-                    align-self: stretch;
-                    border-bottom: 1px solid #000;
-                    color: #000;
-                    font-family: Lato;
-                    font-size: 24px;
-                    font-style: normal;
+            .hello {
+                font-family: 'Josefin Sans';
+                font-size: 36px;
+
+                .bold {
                     font-weight: 700;
-                    line-height: normal;
+                }
+            }
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                font-family: 'Lato';
+                font-size: 18px;
+
+                .profilePic {
+                    height: 40px;
+                    width: 40px;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    border-radius: 100px;
+                    background-color: #FF8F49;
                 }
 
-                .list{
-                    display: flex;
-                    padding: 10px;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 15px;
-                    align-self: stretch;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
 
-                    .ingredient{
+        .content {
+            height: calc(100vh - 180px);
+            
+            display: flex;
+            gap: 20px;
+
+            .left {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .levels {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 20px;
+                    
+                    border-radius: 10px;
+                    background-color: #64B4AA;
+
+                    .current {
                         display: flex;
-                        justify-content: center;
+                        flex-direction: column;
+                        gap: 20px;
+
+                        .rank {
+                            font-family: 'Lato';
+                            font-size: 18px;
+                            color: white;
+                        }
+
+                        .status {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+    
+                            .points {
+                                display: flex;
+                                justify-content: space-between;
+    
+                                font-family: 'Josefin Sans';
+                                font-size: 28px;
+                                font-weight: 700;
+                                color: white;
+                            }
+    
+                            .labels {
+                                display: flex;
+                                justify-content: space-between;
+    
+                                font-family: 'Lato';
+                                font-size: 14px;
+                                color: white;
+                            }
+                        }
+                    }
+
+                    .next {
+                        font-family: 'Lato';
+                        font-size: 18px;
+                        color: white;
+                    }
+                }
+
+                .ingredients {
+                    max-height: 50%;
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    
+                    border-radius: 10px;
+                    border: 2px solid #64B4AA;
+
+                    .heading {
+                        padding: 20px;
+
+                        font-family: 'Josefin Sans';
+                        font-size: 20px;
+                        font-weight: 700;
+                        color: #64B4AA;
+                    }
+
+                    .list {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 10px 20px;
+                        gap: 5px;
+                        overflow-y: scroll;
+
+                        background-color: #64B4AA;
+
+                        .ant-checkbox-inner {
+                            border-color: white;
+                          }
+                        
+                        .ant-checkbox-checked .ant-checkbox-inner {
+                            background-color: #FF8F49;
+                            border-color: #FF8F49;
+                        }
+
+                        .item {
+                            font-family: 'Lato';
+                            font-size: 18px;
+                            color: white;
+                        }
+                    }
+
+                    .list::-webkit-scrollbar {
+                        display: none;
+                    }
+                }
+            }
+
+            .right {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                
+                .tagline {
+                    font-family: 'Josefin Sans';
+                    font-size: 32px;
+                    font-weight: 700;
+                    color: #64B4AA;
+                }
+
+                .card {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    border-radius: 10px;
+
+                    background-color: #64B4AA;
+
+                    .photo {
+                        max-height: 350px;
+                        flex: 1;
+
+                        display: flex;
+
+                        .thumbnail {
+                            flex: 1;
+                            align-self: stretch;
+
+                            object-fit: cover;
+
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                        }
+                    }
+
+                    .info {
+                        display: flex;
+                        justify-content: space-between;
                         align-items: center;
-                        gap: 10px;
-                        color: #000;
-                        leading-trim: both;
-                        text-edge: cap;
-                        font-family: Lato;
-                        font-size: 16px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: normal;
+                        padding: 20px;
+
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+                        background-color: #64B4AA;
+
+                        .name {
+                            margin-bottom: -5px;
+                            font-family: 'Josefin Sans';
+                            font-size: 24px;
+                            font-weight: 700;
+                            color: white;
+                        }
+
+                        .viewButton {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 10px 15px;
+
+                            border-radius: 100px;
+
+                            background-color: white;
+
+                            font-family: 'Lato';
+                            font-size: 18px;
+                            color: #64B4AA;
+
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                cursor: pointer;
+                                transform: scale(1.05);
+                            }
+                        }
+                    }
+                }
+
+                .button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px;
+                    
+                    border-radius: 10px;
+                    border: 2px solid #64B4AA;
+
+                    font-family: 'Lato';
+                    font-size: 18px;
+                    color: #64B4AA;
+
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: #64B4AA;
+                        color: white;
                     }
                 }
             }
         }
-        .directions{
+    }
+
+    .recipeOpen {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: #00000050;
+
+        .modal {
+            width: 80%;
+            height: 80%;
+
             display: flex;
-            width: 65%;
             flex-direction: column;
-            align-items: center;
-            align-self: stretch;
-            
 
-            .heading {
+            background-color: white;
+
+            border-radius: 10px;
+
+            .title {
                 display: flex;
-                padding-bottom: 10px;
+                justify-content: space-between;
                 align-items: center;
-                align-self: stretch;
-                border-bottom: 1px solid #000;
-                color: #000;
-                font-family: Lato;
-                font-size: 24px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-            }
+                padding: 15px 20px;
 
-            .list{
-                display: flex;
-                padding: 10px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-                flex: 1 0 0;
-                align-self: stretch;
-                color: #000;
-                leading-trim: both;
-                text-edge: cap;
-                font-family: Lato;
-                font-size: 16px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }
-            .complete{
-                vertical-align: bottom;
-                margin-bottom:10%;
+                border-bottom: 1px solid #64B4AA;
 
-                width: 25%;
+                .name {
+                    margin-bottom: -5px;
 
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 10px 30px;
-        
-                border: 2px solid #64B4AA;
-                border-radius: 100px;
-        
-                background-color: #64B4AA;
-        
-                font-family: 'Lato';
-                font-size: 20px;
-                color: white;
-        
-                transition: all 0.2s;
-        
-                &:hover {
-                    cursor: pointer;
-
-                    background-color: white;
+                    font-family: 'Josefin Sans';
+                    font-size: 22px;
+                    font-weight: 700;
                     color: #64B4AA;
                 }
+
+                .icon {
+                    font-size: 30px;
+                    color: #64B4AA;
+
+                    transition: all 0.2s;
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.15);
+                    }
+                }
+            }
+
+            .recipeInfo {
+                max-height: 520px;
+                display: flex;
+
+                .left {
+                    display: flex;
+                    flex-direction: column;
+
+                    border-right: 1px solid #64B4AA;
+
+                    .photo {
+                        display: flex;
+    
+                        .thumbnail {
+                            height: 200px;
+                            width: 300px;
+
+                            align-self: stretch;
+    
+                            object-fit: cover;
+                        }
+                    }
+
+                    .ingredients {
+                        max-height: 280px;
+                        display: flex;
+                        flex-direction: column;
+                        padding: 20px;
+                        gap: 10px;
+
+                        .heading {
+                            padding-bottom: 10px;
+
+                            border-bottom: 1px solid black;
+
+                            font-family: 'Lato';
+                            font-size: 18px;
+                            font-weight: 700;
+                        }
+
+                        .list {
+                            display: flex;
+                            flex-direction: column;
+                            overflow-y: scroll;
+    
+                            .ant-checkbox-inner {
+                                border-color: black;
+                              }
+                            
+                            .ant-checkbox-checked .ant-checkbox-inner {
+                                background-color: black;
+                                border-color: black;
+                            }
+    
+                            .item {
+                                font-family: 'Lato';
+                                font-size: 14px;
+
+                                margin-bottom: 5px;
+                            }
+                        }
+    
+                        .list::-webkit-scrollbar {
+                            display: none;
+                        }
+                    }
+                }
+
+                .directions {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    gap: 10px;
+
+                    .heading {
+                        padding-bottom: 10px;
+
+                        border-bottom: 1px solid black;
+
+                        font-family: 'Lato';
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+
+                    .list {
+                        display: flex;
+                        flex-direction: column;
+                        overflow-y: scroll;
+
+                        .item {
+                            font-family: 'Lato';
+                            font-size: 14px;
+
+                            margin-bottom: 5px;
+                        }
+                    }
+
+                    .list::-webkit-scrollbar {
+                        display: none;
+                    }
+                }
+
             }
         }
     }
-    
-}
-
-.recipeCard {
-    flex-direction: row;
-    align-items: center;
-    border-radius: 15px;
-    background: #64B4AA;
-    width: 365px;
-    height: 400px;
-    .image {
-        display: flex;
-        height: 348px;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        align-self: stretch;
-        background: #AAA;
-        width:100%;
-        border-top: 15px;
-    }
-    .recipe{
-        width: 100%;
-        padding-top: 15px;
-        height: auto;
-        background: #64B4AA;
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        align-self: stretch;
-        color: #FFF;
-        font-family: "Josefin Sans";
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-}
-
-.clearButton {
-    background: none;
-    border: none;
-    outline: none;
-    padding: 0;
 }
 
 .welcome {

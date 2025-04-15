@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import axios from "axios";
-import { FaUser } from "react-icons/fa6";
+import { FaCircleXmark, FaUser } from "react-icons/fa6";
 import { Input, Progress } from "antd";
 import "../styling.css";
 
@@ -146,7 +146,12 @@ const Profile = () => {
                                     You have no friends.
                                 </div> : <div className="items">
                                     {userFriends.map((friend, index) => (
-                                        <div key={index} className="item">{friend.friend_username}</div>
+                                        <div key={index} className="item">
+                                            {friend.friend_username}
+                                            
+                                            {/* add onClick remove friend function */}
+                                            <FaCircleXmark  className="remove"/> 
+                                        </div>
                                     ))}
                                 </div>
                             }

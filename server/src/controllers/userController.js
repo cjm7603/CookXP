@@ -69,3 +69,33 @@ exports.logout = async (req, res) => {
       res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+exports.addFriend = async (req, res) => {
+  const { friendId } = req.body;
+  const userId = req.user.id; 
+
+  try {
+    if (userId === friendId) {
+      return res.status(400).json({ message: "You can't add yourself as a friend." });
+    }
+
+    const user = await User.findById(userId);
+    const friend = await User.findById(friendId);
+
+    if (!user || !friend) {
+      return res.status(404).json({ message: "User or friend not found." });
+    }
+
+    if (user.friends.includes(friendId)) {
+      return res.status(400).json({ message: "This user is already your friend." });
+    }
+
+    user.friends.push(friendId);
+    await user.save();
+
+    res.status(200).json({ message: "Friend added successfully", friends: user.friends });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+

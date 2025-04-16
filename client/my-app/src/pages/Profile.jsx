@@ -11,6 +11,7 @@ const Profile = () => {
     const [token, setToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [userFriends, setUserFriends] = useState([]);
+    const [userAchievements, setUserAchievements] = useState([]);
     const friendText = useRef();
 
     const handleGoToSignup = () => {
@@ -76,6 +77,7 @@ const Profile = () => {
         if (token) {
             handleGetUserInfo();
             handleGetUserFriends();
+            handleGetUserAchievements();
         }
     }, [token]);
 

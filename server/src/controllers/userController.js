@@ -148,6 +148,7 @@ exports.getAllUsers = async(req, res) => {
 };
 
 exports.createRecipeCompletion = async(req, res) => {
+  const {recipe_id, username, is_completed} = req.body;
   try {
     const newRecipeCompletion = new RecipeCompletion({
       recipe_id,
@@ -180,3 +181,23 @@ exports.completeRecipe = async(req, res) => {
       res.status(500).json({ message: "Server error", error: err.message });
 }
 };
+
+exports.getRecipeInProgress = async(req, res) => {
+  const {username} = req.params;
+  const data = {
+    username:username,
+    is_completed:false,
+  }
+  try{
+    const recipeDetails = await RecipeCompletion.findOne(data, "recipe_id -_id");
+    if (!recipeDetails) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.status(200).json({ recipeDetails, message: "Recipe information found"});
+
+  }catch(err){
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+
+}

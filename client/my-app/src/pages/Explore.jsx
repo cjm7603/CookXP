@@ -8,12 +8,13 @@ import { ConfigProvider, Input, Checkbox } from "antd";
 import "../styling.css";
 
 const Explore = () => {
+    const navigate = useNavigate();
     const [recipe, setRecipe] = useState(RecipeModel);
     const [recipeOpen, setRecipeOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-
+    const [token, setToken] = useState(null);
     const [search, setSearch] = useState("");
+    const [error, setError] = useState("");
 
     const toggleRecipe = () => {
         setRecipeOpen(!recipeOpen);
@@ -41,9 +42,45 @@ const Explore = () => {
         }
     };
 
+    const handleSaveRecipe = async () => {
+        const data = {
+            recipe_id: recipe.idMeal,
+            username:token.username,
+            is_completed:false
+        }
+        console.log(data);
+        try {
+            const response = await axios.post('http://localhost:5000/user/saveRecipe', data);
+            if(response){
+                if(response.status == 201) {
+                    console.log("Recipe Saved");
+                    navigate("/home");
+                }
+                else{
+                    console.log(response);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
-    handleGetRandomRecipe();
+            const storedData = localStorage.getItem('userInfo');
+            if(storedData) {
+                setToken(JSON.parse(storedData));
+            }
+            else{
+                handleGoToSignup();
+            }
     }, []);
+    
+    useEffect(() => {
+        if (token) {
+            handleGetRandomRecipe();
+        }
+    }, [token]);
+
 
     const renderIngredients = () => {
         return(
@@ -120,8 +157,8 @@ const Explore = () => {
                             <div className="name">
                                 {recipe?.strMeal}
                             </div>
-                            <div> {/* onClick here */}
-                                Add Recipe
+                            <div>
+                                <button onClick={handleSaveRecipe}>Add Recipe</button>
                             </div>
                         </div>
                         <div className="card" onClick={toggleRecipe}>

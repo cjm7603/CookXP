@@ -44,9 +44,36 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    handleGetRandomRecipe();
-  }, []);
+  const handleGetSavedRecipe = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await axios.get("http://localhost:5000/user/recipe/"+token.username);
+      const data = response.data;
+      console.log(response);
+      if(data && data.recipeDetails.recipe_id > 0){
+        const response2 = await axios.get("http://localhost:5000/recipe/"+data.recipeDetails.recipe_id);
+        const data2 = response2.data;
+        if(data2 && data2.meals && data2.meals.length > 0){
+          setRecipe(data2.meals[0]);
+        }
+        else{
+          handleGetRandomRecipe();
+        }
+      }
+      else{
+        console.log("No saved recipe found!");
+        handleGetRandomRecipe();
+      }
+    } catch (error) {
+      setError("Recipe fetch failed. Please try again.");
+      console.log("Error " + error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  
 
   const handleGoToProfile = () => {
     navigate("/profile");
@@ -62,6 +89,7 @@ const Home = () => {
         const { data } = await axios.get('http://localhost:5000/user/' + token.username);
         if(data && data.userDetails ){
             setUserInfo(data.userDetails);
+            handleGetSavedRecipe();
         }
     } catch (error) {
         console.log(error);
@@ -69,42 +97,42 @@ const Home = () => {
   }
 
   useEffect(() => {
-          const storedData = localStorage.getItem('userInfo');
-          if(storedData) {
-              setToken(JSON.parse(storedData));
-          }
-          else{
-              handleGoToSignup();
-          }
-      }, []);
-  
-      useEffect(() => {
-          if (token) {
-              handleGetUserInfo();
-          }
-      }, [token]);
+      const storedData = localStorage.getItem('userInfo');
+      if(storedData) {
+          setToken(JSON.parse(storedData));
+      }
+      else{
+          handleGoToSignup();
+      }
+  }, []);
 
-      const checkCompleteRecipe = async () => {
-        const completeRecipe = {
-            recipe_id: recipe.idMeal,
-            username: token.username,
-            is_completed: true
-        }
-        try {
-            const response = await axios.post('http://localhost:5000/user/createRecipeCompletion', completeRecipe);
-            if(response){
-                if(response.status == 201) {
-                    console.log("recipe completed added");
-                    navigate(0);
-                }
-                else{
-                    console.log(response);
-                }
-            }
-        } catch (error) {
-            console.log(error);
-        }
+  useEffect(() => {
+      if (token) {
+          handleGetUserInfo();
+      }
+  }, [token]);
+
+  const checkCompleteRecipe = async () => {
+    const completeRecipe = {
+        recipe_id: recipe.idMeal,
+        username: token.username,
+        is_completed: true
     }
+    try {
+        const response = await axios.post('http://localhost:5000/user/createRecipeCompletion', completeRecipe);
+        if(response){
+            if(response.status == 201) {
+                console.log("recipe completed added");
+                navigate(0);
+            }
+            else{
+                console.log(response);
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   const renderIngredients = () => {
     return(

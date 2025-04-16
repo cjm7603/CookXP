@@ -29,12 +29,9 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password)
   try {
     const userDoc = await User.findOne({ username });
     const userList = await User.find();
-    console.log(userList)
-    console.log(userDoc)
     if (!userDoc) {
       return res.status(404).json({ message: "Invalid username" });
     }
@@ -122,6 +119,18 @@ exports.getFriendByUser = async (req, res) => {
       res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+exports.removeFriendByUser = async(req, res) => {
+  const {username, friend_username} = req.body;
+  try {
+    const result = await Friend.deleteMany({username:username, friend_username:friend_username});
+    console.log(result);
+    res.status(200).json({message: "Friend deleted "});
+
+  } catch (err) {
+      res.status(500).json({ message: "Server error", error: err.message });
+  }
+}
 
 exports.getAllUsers = async(req, res) => {
   try {

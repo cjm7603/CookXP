@@ -63,6 +63,29 @@ const Profile = () => {
         }
     }
 
+    const handleRemoveFriends = async(friend_username) => {
+        const names = {
+            username: userInfo.username,
+            friend_username: friend_username,
+        }
+        try {
+            const response = await axios.delete('http://localhost:5000/user/friend/', {
+                data:names,
+            });
+            if(response){
+                if(response.status == 200) {
+                    console.log("friend deleted");
+                    navigate(0);
+                }
+                else{
+                    console.log(response);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         const storedData = localStorage.getItem('userInfo');
         if(storedData) {
@@ -77,7 +100,8 @@ const Profile = () => {
         if (token) {
             handleGetUserInfo();
             handleGetUserFriends();
-            handleGetUserAchievements();
+
+            //handleGetUserAchievements();
         }
     }, [token]);
 
@@ -150,9 +174,7 @@ const Profile = () => {
                                     {userFriends.map((friend, index) => (
                                         <div key={index} className="item">
                                             {friend.friend_username}
-                                            
-                                            {/* add onClick remove friend function */}
-                                            <FaCircleXmark  className="remove"/> 
+                                            <FaCircleXmark  className="remove" onClick={() => handleRemoveFriends(friend.friend_username)}/> 
                                         </div>
                                     ))}
                                 </div>

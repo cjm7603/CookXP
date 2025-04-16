@@ -100,7 +100,6 @@ const Profile = () => {
         if (token) {
             handleGetUserInfo();
             handleGetUserFriends();
-
             //handleGetUserAchievements();
         }
     }, [token]);

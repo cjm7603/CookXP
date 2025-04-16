@@ -120,6 +120,9 @@ const Explore = () => {
                             <div className="name">
                                 {recipe?.strMeal}
                             </div>
+                            <div> {/* onClick here */}
+                                Add Recipe
+                            </div>
                         </div>
                         <div className="card" onClick={toggleRecipe}>
                             <div style={{ backgroundImage: `url(${recipe?.strMealThumb})`}} className="photo"/>

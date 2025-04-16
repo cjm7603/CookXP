@@ -84,6 +84,28 @@ const Home = () => {
           }
       }, [token]);
 
+      const checkCompleteRecipe = async () => {
+        const completeRecipe = {
+            recipe_id: recipe.idMeal,
+            username: token.username,
+            is_completed: true
+        }
+        try {
+            const response = await axios.post('http://localhost:5000/user/createRecipeCompletion', completeRecipe);
+            if(response){
+                if(response.status == 201) {
+                    console.log("recipe completed added");
+                    navigate(0);
+                }
+                else{
+                    console.log(response);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   const renderIngredients = () => {
     return(
         <div>
@@ -198,8 +220,8 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="button" onClick={handleGetRandomRecipe}>
-              {loading ? <CircularProgress size={24} color="white"/> : "Random Recipe"}
+            <div className="button" onClick={checkCompleteRecipe}>
+              {loading ? <CircularProgress size={24} color="white"/> : "Completed"}
             </div>
           </div>
         </div>

@@ -42,4 +42,9 @@ const RecipeSchema = new mongoose.Schema({
   timestamps: true
 });
 
+RecipeSchema.pre('save', function (next) {
+    this.point_value = this.ingredients.length;
+    next();
+});
+
 module.exports = mongoose.model('Recipe', RecipeSchema);

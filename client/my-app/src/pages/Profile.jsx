@@ -129,30 +129,30 @@ const Profile = () => {
                             <div className="status">
                                 <div className="points">
                                     <div>
-                                        Level 2
+                                        Level {Math.floor(userInfo?.chef_level / 100)}
                                     </div>
                                     <div>
-                                        100 points
+                                    {userInfo?.chef_level%100} points
                                     </div>
                                 </div>
 
                                 <div className="bar">
-                                    <Progress percent={34} size={[ , 30]} trailColor="white" strokeColor="#FF8F49" showInfo={false}/>
+                                    <Progress percent={userInfo?.chef_level%100} size={[ , 30]} trailColor="white" strokeColor="#FF8F49" showInfo={false}/>
                                 </div>
 
                                 <div className="labels">
-                                    <div>
-                                        LEVEL 0
-                                    </div>
-                                    <div>
-                                        LEVEL 0
-                                    </div>
+                                <div>
+                                    LEVEL {Math.floor(userInfo?.chef_level/100)}
+                                </div>
+                                <div>
+                                    LEVEL {Math.floor(userInfo?.chef_level/100) + 1}
+                                </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="next">
-                            000 points until level 0!
+                        {100 - userInfo?.chef_level%100} points until level {Math.floor(userInfo?.chef_level/100) + 1}!
                         </div>
                     </div>
 

@@ -225,7 +225,7 @@ const Home = () => {
                       Level {Math.floor(userInfo?.chef_level/100)}
                     </div>
                     <div>
-                     100 points
+                    {userInfo?.chef_level%100} points
                     </div>
                   </div>
                   <div className="bar">

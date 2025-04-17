@@ -367,7 +367,7 @@ const Home = () => {
             <div className="button" onClick={checkCompleteRecipe}
               //checkCompleteRecipe}
               >
-              {loading ? <CircularProgress size={24} color="white"/> : "Completed"}
+              {loading ? <CircularProgress size={24} color="white"/> : "Mark Completed"}
             </div>
           </div>
         </div>

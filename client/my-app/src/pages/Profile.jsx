@@ -116,10 +116,10 @@ const Profile = () => {
         //For Paige: basically maps out image logos for the achievements when you have them
         const achievementImages ={
             "Profile Created" : profileBadge,
-            "First Recipe Completion" : badge1,
-            "3rd Recipe Completion" : badge3,
-            "5th Recipe Completion" : badge5,
-            "10th Recipe Completion" : badge10,
+            "1st Recipe Completion" : badge1,
+            "3 Recipes Completed" : badge3,
+            "5 Recipes Completed" : badge5,
+            "10 Recipes Completed" : badge10,
         }
 
         return(

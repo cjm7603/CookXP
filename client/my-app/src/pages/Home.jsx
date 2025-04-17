@@ -148,11 +148,11 @@ const Home = () => {
       const response2 = await axios.put("http://localhost:5000/user/"+userInfo.username, data);
       if(response2.status == 200) {
         console.log("user exp updated");
-      hadnleAchievementUpdates();
-    }
-    else{
-        console.log(response2);
-    }
+        await handleAchievementUpdates();
+      }
+      else{
+          console.log(response2);
+      }
 
     } catch (error) {
         console.log(error);
@@ -167,7 +167,6 @@ const Home = () => {
       if(response){
         if (response.status==200){
           const meals = response.data.data;
-          console.log(userAchievements.length);
           if(userAchievements.length==0){
             //adding achievement for joining
            const data = {
@@ -329,7 +328,7 @@ const Home = () => {
               </div>
             </div>
             
-            <div className="button" onClick={handleAchievementUpdates}
+            <div className="button" onClick={checkCompleteRecipe}
               //checkCompleteRecipe}
               >
               {loading ? <CircularProgress size={24} color="white"/> : "Completed"}

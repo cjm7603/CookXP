@@ -188,7 +188,7 @@ exports.completeRecipe = async(req, res) => {
       {recipe_id: recipe_id, username: username},
       {is_completed: true,
       completion_date: Date.now()},
-      {new:true}
+      {new:true, upsert:true}
     );
 
     res.status(200).json({ message: "Recipe Marked Complete successfully", RecipeCompletion: recipeCompletion });

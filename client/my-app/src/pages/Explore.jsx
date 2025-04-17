@@ -203,16 +203,16 @@ const Explore = () => {
                 />
 
                 <div className="name">{recipe.strMeal}</div>
-                <div>
+                <div className="add">
                   {/* Stop click so that saving doesn't also open the modal */}
-                  <button
+                  <div
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSaveRecipe(recipe);
                     }}
                   >
                     Add Recipe
-                  </button>
+                  </div>
                 </div>
               </div>
             ))}

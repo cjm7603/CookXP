@@ -199,9 +199,6 @@ const Explore = () => {
       <div className="body">
         <div className="title">Explore Recipes</div>
         <div className="filterSearch">
-          <div className="filter">
-            <FaFilter className="icon" /> Open Filters
-          </div>
           <div className="search">
             <ConfigProvider
               theme={{

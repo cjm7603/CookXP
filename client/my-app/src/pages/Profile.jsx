@@ -4,6 +4,13 @@ import SideNav from "../components/SideNav";
 import axios from "axios";
 import { FaCircleXmark, FaUser } from "react-icons/fa6";
 import { Input, Progress } from "antd";
+
+import profileBadge from "../assets/profilebadge.png";
+import badge1 from "../assets/badge1.png";
+import badge3 from "../assets/badge3.png";
+import badge5 from "../assets/badge5.png";
+import badge10 from "../assets/badge10.png";
+
 import "../styling.css";
 
 const Profile = () => {
@@ -108,28 +115,28 @@ const Profile = () => {
     const renderAchievements = () => {
         //For Paige: basically maps out image logos for the achievements when you have them
         const achievementImages ={
-            "Profile Created" : "/assets/icon0.png",
-            "1st Recipe Completion" : "/assets/icon1.png",
-            "3rd Recipe Completion" : "/assets/icon3.png",
-            "5th Recipe Completion" : "/assets/icon5.png",
-            "10th Recipe Completion" : "/assets/icon10.png",
+            "Profile Created" : profileBadge,
+            "First Recipe Completion" : badge1,
+            "3rd Recipe Completion" : badge3,
+            "5th Recipe Completion" : badge5,
+            "10th Recipe Completion" : badge10,
         }
 
         return(
             //This is based off your other render code, it should work similarly i think
-            <div className="achievement-list">
+            <div className="badges">
                 {userAchievements.map((achievement, index) => {
                     const { name, description, earned_date } = achievement;
                     const imageSrc = achievementImages[name] || "/assets/default.png";
 
                     return (
-                    <div key={index}>
-                        <img src={imageSrc} alt={name}/>
-                        <div>
-                            <h3>{name}</h3>
-                            <p>{description}</p>
-                            <small>{new Date(earned_date).toLocaleDateString()}</small>
+                    <div key={index} className="badge">
+                        <img src={imageSrc} alt={name} className="badgeImg"/>
+                        <div className="info">
+                            <div className="name">{name}</div>
+                            <div className="description">{description}</div>
                         </div>
+                        <div className="date">{new Date(earned_date).toLocaleDateString()}</div>
                     </div>
                     );
                 })}
@@ -137,6 +144,41 @@ const Profile = () => {
         );
     }
 
+    const renderChefRank = () => {
+        let rank = "";
+        const points = userInfo?.chef_level;
+
+        if (points >= 0 && points < 100) {
+            rank = "Dishwasher";
+        }
+        else if (points >= 100 && points < 200) {
+            rank = "Junior Chef";
+        }
+        else if (points >= 200 && points < 300) {
+            rank = "Grill Chef";
+        }
+        else if (points >= 300 && points < 400) {
+            rank = "Entree Chef";
+        }
+        else if (points >= 400 && points < 500) {
+            rank = "Relief Chef";
+        }
+        else if (points >= 500 && points < 600) {
+            rank = "Deputy Chef";
+        }
+        else if (points >= 600 && points < 700) {
+            rank = "Head Chef";
+        }
+        else if (points >= 700) {
+            rank = "Executive Chef";
+        }
+
+        return (
+            <div>
+                {rank}
+            </div>
+        )
+    }
 
     return (
         <div className="profile">
@@ -152,12 +194,11 @@ const Profile = () => {
                         {userInfo?.username}
                     </div>
                 </div>
-                {renderAchievements()}
                 <div className="content">
                     <div className="levels">
                         <div className="current">
                             <div className="rank">
-                                Chef Rank
+                                {renderChefRank()}
                             </div>
 
                             <div className="status">
@@ -190,14 +231,25 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <div className="friends">
-                        <div className="addFriend">
-                            <input type="text" ref={friendText} placeholder="Enter username to add..." className="input"/>
-                            <div className="addButton" onClick={handleAddFriend}>Add Friend</div>
+                    <div className="achievements">
+                        <div className="heading">
+                            Achievements
                         </div>
+                        
+                        {renderAchievements()}
+                    </div>
+
+                    
+
+                    <div className="friends">
                         <div className="myFriends">
                             <div className="heading">
                                 My Friends
+                            </div>
+
+                            <div className="addFriend">
+                                <input type="text" ref={friendText} placeholder="Enter username to add..." className="input"/>
+                                <div className="addButton" onClick={handleAddFriend}>Add Friend</div>
                             </div>
                             
                             {userFriends == [] ?

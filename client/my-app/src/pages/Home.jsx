@@ -253,6 +253,42 @@ const Home = () => {
     );
   }
 
+  const renderChefRank = () => {
+    let rank = "";
+    const points = userInfo?.chef_level;
+
+    if (points >= 0 && points < 100) {
+        rank = "Dishwasher";
+    }
+    else if (points >= 100 && points < 200) {
+        rank = "Junior Chef";
+    }
+    else if (points >= 200 && points < 300) {
+        rank = "Grill Chef";
+    }
+    else if (points >= 300 && points < 400) {
+        rank = "Entree Chef";
+    }
+    else if (points >= 400 && points < 500) {
+        rank = "Relief Chef";
+    }
+    else if (points >= 500 && points < 600) {
+        rank = "Deputy Chef";
+    }
+    else if (points >= 600 && points < 700) {
+        rank = "Head Chef";
+    }
+    else if (points >= 700) {
+        rank = "Executive Chef";
+    }
+
+    return (
+        <div>
+            {rank}
+        </div>
+    )
+  } 
+
   return (
     <div className="home">
       <SideNav />
@@ -274,7 +310,7 @@ const Home = () => {
             <div className="levels">
               <div className="current">
                 <div className="rank">
-                  Chef Rank
+                  {renderChefRank()}
                 </div>
                 <div className="status">
                   <div className="points">

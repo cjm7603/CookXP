@@ -731,47 +731,10 @@
                 flex-direction: column;
                 gap: 30px;
 
-                .addFriend {
-                    display: flex;
-    
-                    .input {
-                        flex: 1;
-                        padding: 10px 15px;
-
-                        border-top-left-radius: 10px;
-                        border-bottom-left-radius: 10px;
-                        border: 1px solid #FF8F49;
-
-                        font-family: 'Lato';
-                        font-size: 16px;
-                    }
-    
-                    .addButton {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 10px 20px;
-    
-                        border-top-right-radius: 10px;
-                        border-bottom-right-radius: 10px;
-    
-                        background-color: #FF8F49;
-
-                        font-family: 'Lato';
-                        font-size: 16px;
-                        font-weight: 700;
-                        color: white;
-
-                        &:hover {
-                            cursor: pointer;
-                        }
-                    }
-                }
-
                 .myFriends {
                     display: flex;
                     flex-direction: column;
-                    gap: 15px;
+                    gap: 20px;
 
                     .heading {
                         display: flex;
@@ -779,6 +742,43 @@
     
                         font-family: 'Josefin Sans';
                         font-size: 32px;
+                    }
+
+                    .addFriend {
+                        display: flex;
+        
+                        .input {
+                            flex: 1;
+                            padding: 10px 15px;
+    
+                            border-top-left-radius: 10px;
+                            border-bottom-left-radius: 10px;
+                            border: 1px solid #FF8F49;
+    
+                            font-family: 'Lato';
+                            font-size: 16px;
+                        }
+        
+                        .addButton {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 10px 20px;
+        
+                            border-top-right-radius: 10px;
+                            border-bottom-right-radius: 10px;
+        
+                            background-color: #FF8F49;
+    
+                            font-family: 'Lato';
+                            font-size: 16px;
+                            font-weight: 700;
+                            color: white;
+    
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
                     }
     
                     .items {
@@ -810,6 +810,69 @@
                                     transform: scale(1.05);
                                 }
                             }
+                        }
+                    }
+                }
+            }
+
+            .achievements {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .heading {
+                    display: flex;
+                    justify-content: space-between;
+
+                    font-family: 'Josefin Sans';
+                    font-size: 32px;
+                }
+
+                .badges {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    gap: 30px;
+
+                    .badge {
+                        max-width: 250px;
+
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 20px;
+                        gap: 30px;
+
+                        border-radius: 15px;
+                        border: 2px solid #FF8F49;
+
+                        .info {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+
+                            text-align: center;
+
+                            .name {
+                                font-family: 'Josefin Sans';
+                                font-weight: 700;
+                                font-size: 20px;
+                            }
+
+                            .description {
+                                font-family: 'Lato';
+                                font-size: 18px;
+                            }
+                        }
+
+                        .date {
+                            font-family: 'Lato';
+                            font-size: 14px;
+                        }
+
+                        .badgeImg {
+                            height: 150px;
+                            object-fit: contain;
                         }
                     }
                 }
@@ -859,38 +922,12 @@
             align-items: center;
             padding: 0 50px;
 
-            .filter {
-                display: flex;
-                align-items: center;
-                padding: 15px 20px;
-                gap: 10px;
-
-                border-radius: 100px;
-
-                background-color: #64B4AA;
-
-                font-family: 'Lato';
-                font-size: 16px;
-                color: white;
-
-                transition: all 0.2s ease;
-
-                .icon {
-                    font-size: 20px;
-                    color: white;
-                }
-
-                &:hover {
-                    cursor: pointer;
-                    transform: scale(1.05);
-                }
-            }
-
             .search {
-                height: 100%;
+                width: 100%;
+
                 display: flex;
                 align-items: center;
-                padding: 0 15px;
+                padding: 10px 15px;
 
                 border-radius: 100px;
                 border: 1px solid #FF8F49;

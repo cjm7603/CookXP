@@ -74,17 +74,12 @@ const Explore = () => {
     setLoading(true);
     setError("");
     try {
-      const requests = Array.from({ length: NUM_CARDS }, () =>
-        axios.get("http://localhost:5000/recipe/name/" + search)
+      const response = await axios.get("http://localhost:5000/recipe/name/" + search);
+      const meals = response.data?.meals || [];
+      console.log(meals);
+      const newRecipes = meals.filter(
+        (meal, idx, self) => self.findIndex((m) => m.idMeal === meal.idMeal) === idx
       );
-
-      const responses = await Promise.all(requests);
-      console.log(responses);
-      const newRecipes = responses
-        .map((res) => res.data?.meals?.[0])
-        // Filter out any undefined / null responses and accidental duplicates
-        .filter((meal, idx, self) => !!meal && self.findIndex((m) => m.idMeal === meal.idMeal) === idx);
-
       setRecipes(newRecipes);
 
       // If we somehow ended up with fewer than requested (duplicate filtering), fetch until filled
@@ -204,9 +199,6 @@ const Explore = () => {
       <div className="body">
         <div className="title">Explore Recipes</div>
         <div className="filterSearch">
-          <div className="filter">
-            <FaFilter className="icon" /> Open Filters
-          </div>
           <div className="search">
             <ConfigProvider
               theme={{

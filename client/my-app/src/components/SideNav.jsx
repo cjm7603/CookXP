@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TbLayoutSidebarRightExpandFilled, TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
-import { FaHouse, FaGear, FaUtensils, FaRightFromBracket } from "react-icons/fa6";
+import { FaHouse, FaUser, FaUtensils, FaRightFromBracket } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 
 import "../styling.css";
@@ -61,10 +61,10 @@ const SideNav = () => {
                                 Explore
                             </div>
                         </div>
-                        <div className="nav" onClick={()=>navigate("/settings")}>
-                            <FaGear className="icon"/>
+                        <div className="nav" onClick={()=>navigate("/profile")}>
+                            <FaUser className="icon"/>
                             <div className="label">
-                                Settings
+                                Profile
                             </div>
                         </div>
                     </div>
@@ -87,8 +87,8 @@ const SideNav = () => {
                         <div onClick={()=>navigate("/explore")}>
                             <FaUtensils className="icon"/>
                         </div>
-                        <div onClick={()=>navigate("/settings")}>
-                            <FaGear className="icon"/>
+                        <div onClick={()=>navigate("/profile")}>
+                            <FaUser className="icon"/>
                         </div>
                     </div>
                     <div>

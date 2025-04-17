@@ -17,6 +17,7 @@ const Home = () => {
   const [recipeOpen, setRecipeOpen] = useState(false);
   const [token, setToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const [userAchievements, setUserAchievements] = useState(null);
   const [error, setError] = useState("");
 
   const toggleRecipe = () => {
@@ -87,8 +88,10 @@ const Home = () => {
 
     try {
         const { data } = await axios.get('http://localhost:5000/user/' + token.username);
+        const achievementResponse = await axios.get("http://localhost:5000/achievement/user/" + token.username);
         if(data && data.userDetails ){
             setUserInfo(data.userDetails);
+            setUserAchievements(achievementResponse.data.data);
             handleGetSavedRecipe();
         }
     } catch (error) {
@@ -145,6 +148,7 @@ const Home = () => {
       const response2 = await axios.put("http://localhost:5000/user/"+userInfo.username, data);
       if(response2.status == 200) {
         console.log("user exp updated");
+      hadnleAchievementUpdates();
     }
     else{
         console.log(response2);
@@ -155,7 +159,61 @@ const Home = () => {
     }
 
     navigate(0);
-}
+  }
+
+  const handleAchievementUpdates= async () => {
+    try{
+      const response = await axios.get("http://localhost:5000/user/recipe/all/"+userInfo.username);
+      if(response){
+        if (response.status==200){
+          const meals = response.data.data;
+          console.log(userAchievements.length);
+          if(userAchievements.length==0){
+            //adding achievement for joining
+           const data = {
+            username:userInfo.username,
+            name: "Profile Created",
+            description: "Welcome to the app, Chef! This is your first achievement :)"
+           }
+           const resp2 = await axios.post("http://localhost:5000/achievement/create", data);
+
+           //adding achievement for making first recipe (since func is only called on recipe completion)
+           const data2 = {
+            username:userInfo.username,
+            name: "1st Recipe Completion",
+            description: "You've completed your first recipe! Good Job!"
+           }
+           const resp3 = await axios.post("http://localhost:5000/achievement/create", data2);
+          }
+          //if 3 meals
+          else if(meals.length == 3){
+            const data ={
+              username:userInfo.username,
+              name: "3 Recipes Completed",
+              description: "You've completed 3 Recipes! You're on your way to becoming a master chef!"
+            }
+            const resp = await axios.post("http://localhost:5000/achievement/create", data);
+          }
+          else if(meals.length % 5 == 0){
+            const data ={
+              username:userInfo.username,
+              name: meals.length + " Recipes Completed",
+              description: "You've completed " +meals.legnth+" Recipes! You're amazing!"
+            }
+            const resp = await axios.post("http://localhost:5000/achievement/create", data);
+          }
+          
+        }
+        
+        else{
+          console.log(response);
+        }
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
   const renderIngredients = () => {
     return(
@@ -270,8 +328,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
-
-            <div className="button" onClick={checkCompleteRecipe}>
+            
+            <div className="button" onClick={handleAchievementUpdates}
+              //checkCompleteRecipe}
+              >
               {loading ? <CircularProgress size={24} color="white"/> : "Completed"}
             </div>
           </div>

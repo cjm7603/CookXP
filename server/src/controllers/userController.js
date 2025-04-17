@@ -217,3 +217,22 @@ exports.getRecipeInProgress = async(req, res) => {
   }
 
 }
+
+exports.getRecipesCompletedByUser = async(req, res) => {
+  const {username} = req.params;
+  console.log("hit");
+  const data = {
+    username: username,
+    is_completed: true,
+  }
+  try{
+    const recipeCompletionList = await RecipeCompletion.find(data, "recipe_id -_id");
+    if(!recipeCompletionList){
+      return res.status(404).json({message: "No completed recipes found"});
+    }
+    res.status(200).json({data:recipeCompletionList, message:"Recipe List Found"});
+  }
+  catch(err){
+    res.status(500).json({message: "Server error", error:err.message});
+  }
+}

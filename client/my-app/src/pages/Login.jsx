@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
-import { Container, Box, TextField, Button, Typography, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import logo from "../assets/logo.png";
+
+import "../styling.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -41,38 +44,39 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <Box>
-        <Typography variant="h5">Login</Typography>
-        <TextField
-          label="Username"
-          variant="outlined"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <Typography>{error}</Typography>}
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={handleLogin}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress size={24} /> : "LOG IN"}
-        </Button>
-      </Box>
-      <Typography>
-        Don't have an account? <span onClick={() => navigate("/signup")}>Sign Up</span>
-      </Typography>
-    </Container>
+    <div className="login">
+        <div className="container">
+          <div className="upper">
+            <img src={logo} alt="CookXP Logo" className="logo"/>
+          </div>
+          <div className="lower">
+            <div className="prompt">
+              Welcome Back!
+            </div>
+
+            <div className="inputs">
+              <div className="input">
+                Username
+                <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="input-field"/>
+              </div>
+
+              <div className="input">
+                Password
+                <input type="text" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input-field"/>
+              </div>
+
+              {error && <div className="error">{error}</div> }
+            </div>
+
+            <button onClick={handleLogin} className="login-button">
+              {loading ? <CircularProgress size={24} color="white"/> : "Login"}
+            </button>
+            <div className="signup-nav">
+              Don’t have an account? <span className="signup-link" onClick={() => navigate("/signup")}>Sign Up</span>
+            </div>
+          </div>
+        </div>
+    </div>
   );
 };
 

@@ -3,7 +3,9 @@ const app = express();
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const userRoutes = require("./routes/userRoutes")
+const userRoutes = require("./routes/userRoutes");
+const achievementRoutes = require("./routes/achievementRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
@@ -22,6 +24,8 @@ app.use(cors({
 }));
 
 app.use("/user", userRoutes);
+app.use("/achievement", achievementRoutes)
+app.use("/recipe", recipeRoutes);
 
 // Sample Route
 app.get("/", (req, res) => {

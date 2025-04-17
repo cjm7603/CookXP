@@ -21,8 +21,10 @@ const Profile = () => {
     const handleGetUserInfo = async () => {
         try {
             const { data } = await axios.get('http://localhost:5000/user/' + token.username);
+            const achievementResponse = await axios.get("http://localhost:5000/achievement/user/" + token.username);
             if(data && data.userDetails ){
                 setUserInfo(data.userDetails);
+                setUserAchievements(achievementResponse.data.data);
             }
         } catch (error) {
             console.log(error);
@@ -100,9 +102,41 @@ const Profile = () => {
         if (token) {
             handleGetUserInfo();
             handleGetUserFriends();
-            //handleGetUserAchievements();
         }
     }, [token]);
+
+    const renderAchievements = () => {
+        //For Paige: basically maps out image logos for the achievements when you have them
+        const achievementImages ={
+            "Profile Created" : "/assets/icon0.png",
+            "1st Recipe Completion" : "/assets/icon1.png",
+            "3rd Recipe Completion" : "/assets/icon3.png",
+            "5th Recipe Completion" : "/assets/icon5.png",
+            "10th Recipe Completion" : "/assets/icon10.png",
+        }
+
+        return(
+            //This is based off your other render code, it should work similarly i think
+            <div className="achievement-list">
+                {userAchievements.map((achievement, index) => {
+                    const { name, description, earned_date } = achievement;
+                    const imageSrc = achievementImages[name] || "/assets/default.png";
+
+                    return (
+                    <div key={index}>
+                        <img src={imageSrc} alt={name}/>
+                        <div>
+                            <h3>{name}</h3>
+                            <p>{description}</p>
+                            <small>{new Date(earned_date).toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                    );
+                })}
+            </div>
+        );
+    }
+
 
     return (
         <div className="profile">
@@ -118,7 +152,7 @@ const Profile = () => {
                         {userInfo?.username}
                     </div>
                 </div>
-
+                {renderAchievements()}
                 <div className="content">
                     <div className="levels">
                         <div className="current">

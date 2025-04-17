@@ -220,7 +220,6 @@ exports.getRecipeInProgress = async(req, res) => {
 
 exports.getRecipesCompletedByUser = async(req, res) => {
   const {username} = req.params;
-  console.log("hit");
   const data = {
     username: username,
     is_completed: true,

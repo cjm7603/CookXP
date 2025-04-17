@@ -64,10 +64,10 @@ exports.getById = async (req, res) => {
 };
 
 exports.getByName = async(req, res) => {
-    const {name}  = req.body;
+    const {name}  = req.params;
     try{
         const response = await axios.get("https://www.themealdb.com/api/json/v1/1/search.php?s="+name);
-        response.status(200).json(response.data);
+        res.status(200).json(response.data);
     }
     catch(err){
         res.status(500).json({message:"Server error", error:err.message});

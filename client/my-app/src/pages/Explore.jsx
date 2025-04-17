@@ -64,6 +64,45 @@ const Explore = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key == "Enter"){
+      fetchSearchedRecipes()
+    }
+  }
+
+  const fetchSearchedRecipes = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const requests = Array.from({ length: NUM_CARDS }, () =>
+        axios.get("http://localhost:5000/recipe/name/" + search)
+      );
+
+      const responses = await Promise.all(requests);
+      console.log(responses);
+      const newRecipes = responses
+        .map((res) => res.data?.meals?.[0])
+        // Filter out any undefined / null responses and accidental duplicates
+        .filter((meal, idx, self) => !!meal && self.findIndex((m) => m.idMeal === meal.idMeal) === idx);
+
+      setRecipes(newRecipes);
+
+      // If we somehow ended up with fewer than requested (duplicate filtering), fetch until filled
+      while (newRecipes.length < NUM_CARDS) {
+        const { data } = await axios.get("http://localhost:5000/recipe/random");
+        if (data?.meals?.[0] && !newRecipes.some((m) => m.idMeal === data.meals[0].idMeal)) {
+          newRecipes.push(data.meals[0]);
+        }
+      }
+      setRecipes([...newRecipes]);
+    } catch (err) {
+      console.error(err);
+      setError("Recipe fetch failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   /**
    * Save a recipe for the current user.
    */
@@ -151,10 +190,12 @@ const Explore = () => {
   /**
    * Filter recipes client‑side by search term (placeholder logic; replace with
    * real search once backend supports it).
-   */
+  */
   const visibleRecipes = recipes.filter((r) =>
-    r.strMeal.toLowerCase().includes(search.toLowerCase())
+    r.strMeal.toLowerCase()
+    //r.strMeal.toLowerCase().includes(search.toLowerCase())
   );
+  
 
   return (
     <div className="explore">
@@ -182,6 +223,7 @@ const Explore = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="input"
+                onKeyDown={handleKeyDown}
               />
             </ConfigProvider>
           </div>

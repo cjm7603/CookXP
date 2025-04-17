@@ -44,7 +44,7 @@ const Profile = () => {
 
     }
 
-    const handleAddFriend = async() => {
+    const handleAddFriend = async() => { 
         const names = {
             username: userInfo.username,
             friend_username: friendText.current.value,

@@ -50,7 +50,6 @@ const Home = () => {
     try {
       const response = await axios.get("http://localhost:5000/user/recipe/"+token.username);
       const data = response.data;
-      console.log(response);
       if(data && data.recipeDetails.recipe_id > 0){
         const response2 = await axios.get("http://localhost:5000/recipe/"+data.recipeDetails.recipe_id);
         const data2 = response2.data;
@@ -68,6 +67,7 @@ const Home = () => {
     } catch (error) {
       setError("Recipe fetch failed. Please try again.");
       console.log("Error " + error);
+      handleGetRandomRecipe();
     } finally {
       setLoading(false);
     }
@@ -119,19 +119,42 @@ const Home = () => {
         is_completed: true
     }
     try {
-        const response = await axios.post('http://localhost:5000/user/createRecipeCompletion', completeRecipe);
-        if(response){
-            if(response.status == 201) {
-                console.log("recipe completed added");
-                navigate(0);
-            }
-            else{
-                console.log(response);
-            }
-        }
+      //mark user recipe complete
+      const response = await axios.put('http://localhost:5000/user/recipe/completeRecipe', completeRecipe);
+      console.log(response);
+      if(response){
+          if(response.status == 200) {
+              console.log("recipe marked complete");
+          }
+          else{
+              console.log(response);
+          }
+      }
+
+      //increment user exp
+      //count ingredients
+      const ingredientCount = Object.keys(recipe).filter(
+        key => key.startsWith("strIngredient") && recipe[key]
+      ).length;
+      //logic for updating chef level
+      const level = userInfo.chef_level + (ingredientCount * 3) + 10;
+      const data = {
+        username: userInfo.username,
+        chef_level: level
+      }
+      const response2 = await axios.put("http://localhost:5000/user/"+userInfo.username, data);
+      if(response2.status == 200) {
+        console.log("user exp updated");
+    }
+    else{
+        console.log(response2);
+    }
+
     } catch (error) {
         console.log(error);
     }
+
+    navigate(0);
 }
 
   const renderIngredients = () => {
@@ -199,27 +222,27 @@ const Home = () => {
                 <div className="status">
                   <div className="points">
                     <div>
-                      Level 2
+                      Level {Math.floor(userInfo?.chef_level/100)}
                     </div>
                     <div>
                      100 points
                     </div>
                   </div>
                   <div className="bar">
-                    <Progress percent={34} size={[ , 30]} trailColor="white" strokeColor="#FF8F49" showInfo={false}/>
+                    <Progress percent={userInfo?.chef_level%100} size={[ , 30]} trailColor="white" strokeColor="#FF8F49" showInfo={false}/>
                   </div>
                   <div className="labels">
                     <div>
-                      LEVEL 0
+                      LEVEL {Math.floor(userInfo?.chef_level/100)}
                     </div>
                     <div>
-                      LEVEL 0
+                      LEVEL {Math.floor(userInfo?.chef_level/100) + 1}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="next">
-                000 points until level 0!
+                {100 - userInfo?.chef_level%100} points until level {Math.floor(userInfo?.chef_level/100) + 1}!
               </div>
             </div>
             <div className="ingredients">

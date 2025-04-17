@@ -87,6 +87,23 @@ exports.getUserInfo = async(req, res) =>{
 
 }
 
+exports.updateUserInfo = async(req, res) => {
+  const {username, chef_level} = req.body;
+  try {
+    const userInfo = await User.findOneAndUpdate(
+      {username: username},
+      {chef_level: chef_level},
+      {new:true}
+    );
+
+    res.status(200).json({ message: "User Info Updates Successfully", UserInfo: userInfo });
+
+  } catch (err) {
+      res.status(500).json({ message: "Server error", error: err.message });
+  }
+
+}
+
 
 exports.addFriend = async (req, res) => {
   const {username, friend_username } = req.body;
@@ -124,7 +141,6 @@ exports.removeFriendByUser = async(req, res) => {
   const {username, friend_username} = req.body;
   try {
     const result = await Friend.deleteMany({username:username, friend_username:friend_username});
-    console.log(result);
     res.status(200).json({message: "Friend deleted "});
 
   } catch (err) {
@@ -166,12 +182,12 @@ exports.createRecipeCompletion = async(req, res) => {
 
 
 exports.completeRecipe = async(req, res) => {
-  const {recipeCompletionId} = req.params;
+  const {recipe_id,username} = req.body;
   try {
-    const recipeCompletion = await RecipeCompletion.findByIdAndUpdate(
-      recipeCompletionId,
+    const recipeCompletion = await RecipeCompletion.findOneAndUpdate(
+      {recipe_id: recipe_id, username: username},
       {is_completed: true,
-      completion_date: Date.now},
+      completion_date: Date.now()},
       {new:true}
     );
 
@@ -179,7 +195,7 @@ exports.completeRecipe = async(req, res) => {
 
   } catch (err) {
       res.status(500).json({ message: "Server error", error: err.message });
-}
+  }
 };
 
 exports.getRecipeInProgress = async(req, res) => {
